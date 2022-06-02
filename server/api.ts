@@ -1,9 +1,10 @@
 import express from "express";
-import petRoutes from "./routes/petRoutes";
+import routes from "./routes";
 
 const api = express();
 api.use(express.json());
 
-api.use("/", petRoutes);
+api.use("/", routes.petRoute);
+api.use("/", routes.ownerRoute);
 
 export default api;

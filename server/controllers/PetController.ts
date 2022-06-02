@@ -1,8 +1,9 @@
 import { Request, Response } from "express";
+import { IPet } from "../interface";
 import { Pet } from "../models/Pet";
 
 const createPet = async (req: Request, res: Response) => {
-    const { pet } = req.body;
+    const { pet }: { pet: IPet } = req.body;
 
     if (!pet)
         return res.status(400).json({
@@ -10,7 +11,7 @@ const createPet = async (req: Request, res: Response) => {
         });
 
     try {
-        const newPet = Pet.create(pet);
+        const newPet = await Pet.create(pet);
         return res.status(201).json({
             message: "Usuario creado!!",
             pet: newPet,
