@@ -8,4 +8,7 @@ router.get("/owner/:id", OwnerController.getOwnerByIdWithPets);
 
 router.post("/owner", OwnerController.createOwner);
 
+router.put("/owner/:id", OwnerController.updateOwnerById);
+router.delete("/owner/:id", OwnerController.deleteOwnerById);
+
 export default router;

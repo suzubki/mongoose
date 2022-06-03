@@ -23,7 +23,7 @@ const createOwner = async (req: Request, res: Response) => {
             owner: newOwner,
         });
     } catch (error) {
-        return res.json({
+        return res.status(400).json({
             message: "Error al crear el dueño",
             error,
         });
@@ -64,7 +64,7 @@ const getOwnerByIdWithPets = async (req: Request, res: Response) => {
         }
 
         return res.status(200).json({
-            message: "Owner encontrado satisfactoriamente!!",
+            message: "Owner encontrado",
             owner,
         });
     } catch (error) {
@@ -75,10 +75,66 @@ const getOwnerByIdWithPets = async (req: Request, res: Response) => {
     }
 };
 
+const updateOwnerById = async (req: Request, res: Response) => {
+    const { id } = req.params;
+
+    const { mascotas } = req.body;
+
+    if (mascotas) {
+        return res.status(401).json({
+            message: "No se pueden actualizar las mascotas del dueño!!",
+        });
+    }
+
+    try {
+        const owner = await Owner.findByIdAndUpdate(id, req.body);
+
+        if (!owner) {
+            return res.status(400).json({
+                message: "Ese dueño no existe!!!",
+            });
+        }
+
+        return res.status(201).json({
+            message: "Dueño actualizado!",
+            owner,
+        });
+    } catch (error) {
+        return res.json({
+            message: "Error al actualizar el dueño",
+        });
+    }
+};
+
+const deleteOwnerById = async (req: Request, res: Response) => {
+    const { id } = req.params;
+
+    try {
+        const owner = await Owner.findByIdAndDelete(id);
+
+        if (!owner) {
+            return res.status(400).json({
+                message: "Ese dueño no existe!!!",
+            });
+        }
+
+        return res.status(200).json({
+            message: "Owner eliminado!",
+            owner,
+        });
+    } catch (error) {
+        return res.status(400).json({
+            message: "Error al eliminar el dueño",
+        });
+    }
+};
+
 const OwnerController = {
     createOwner,
     getOwners,
     getOwnerByIdWithPets,
+    updateOwnerById,
+    deleteOwnerById,
 };
 
 export default OwnerController;
