@@ -16,7 +16,7 @@ const createOwner = async (req: Request, res: Response) => {
     }
 
     try {
-        const newOwner = await Owner.create(owner);
+        const newOwner: Props = await Owner.create(owner);
 
         return res.status(201).json({
             message: "Owner creado",
@@ -32,7 +32,8 @@ const createOwner = async (req: Request, res: Response) => {
 
 const getOwners = async (req: Request, res: Response) => {
     try {
-        const owners = await Owner.find();
+        const owners: Props[] = await Owner.find();
+
         if (!owners) {
             return res.status(400).json({
                 message: "No hay dueños",
@@ -55,7 +56,9 @@ const getOwnerByIdWithPets = async (req: Request, res: Response) => {
     const { id } = req.params;
 
     try {
-        const owner = await Owner.findById(id).populate("mascotas");
+        const owner: Props | any = await Owner.findById(id).populate(
+            "mascotas"
+        );
 
         if (!owner) {
             return res.status(400).json({
@@ -87,7 +90,7 @@ const updateOwnerById = async (req: Request, res: Response) => {
     }
 
     try {
-        const owner = await Owner.findByIdAndUpdate(id, req.body);
+        const owner: Props | null = await Owner.findByIdAndUpdate(id, req.body);
 
         if (!owner) {
             return res.status(400).json({
@@ -110,7 +113,7 @@ const deleteOwnerById = async (req: Request, res: Response) => {
     const { id } = req.params;
 
     try {
-        const owner = await Owner.findByIdAndDelete(id);
+        const owner: Props | any = await Owner.findByIdAndDelete(id);
 
         if (!owner) {
             return res.status(400).json({

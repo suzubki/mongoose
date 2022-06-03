@@ -7,7 +7,13 @@ export interface IPet {
 
 export interface IOwner {
     nombre: string;
-    apellido: string;
+    correo: string;
+    edad: number;
+    mascotas: IPet[];
+}
+
+export interface IVeterinarian {
+    nombre: string;
     correo: string;
     edad: number;
 }
