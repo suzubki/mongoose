@@ -6,10 +6,25 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.Owner = void 0;
 const mongoose_1 = __importDefault(require("mongoose"));
 const model = new mongoose_1.default.Schema({
-    nombre: String,
-    apellido: String,
+    nombre: {
+        type: String,
+        unique: true,
+        required: true,
+        trim: true,
+    },
     edad: Number,
-    correo: String,
+    correo: {
+        type: String,
+        unique: true,
+        required: [true, "El correo es obligatorio"],
+        trim: true,
+    },
+    mascotas: [
+        {
+            type: mongoose_1.default.Schema.Types.ObjectId,
+            ref: "Pets",
+        },
+    ],
 });
-exports.Owner = mongoose_1.default.model("User", model);
+exports.Owner = mongoose_1.default.model("Owners", model);
 //# sourceMappingURL=Owner.js.map

@@ -11,5 +11,5 @@ const model = new mongoose_1.default.Schema({
     raza: String,
     tipo: String,
 });
-exports.Pet = mongoose_1.default.model("Pet", model);
+exports.Pet = mongoose_1.default.model("Pets", model);
 //# sourceMappingURL=Pet.js.map
