@@ -1,8 +1,11 @@
 import { Router } from "express";
-import createOwner from "../controllers/OwnerController";
+import OwnerController from "../controllers/OwnerController";
 
 const router = Router();
 
-router.post("/owner", createOwner);
+router.get("/owner", OwnerController.getOwners);
+router.get("/owner/:id", OwnerController.getOwnerByIdWithPets);
+
+router.post("/owner", OwnerController.createOwner);
 
 export default router;

@@ -1,10 +1,25 @@
 import mongoose, { Schema } from "mongoose";
 
 const model: Schema = new mongoose.Schema({
-    nombre: String,
-    apellido: String,
+    nombre: {
+        type: String,
+        unique: true,
+        required: true,
+        trim: true,
+    },
     edad: Number,
-    correo: String,
+    correo: {
+        type: String,
+        unique: true,
+        required: [true, "El correo es obligatorio"],
+        trim: true,
+    },
+    mascotas: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "Pets",
+        },
+    ],
 });
 
-export const Owner = mongoose.model("User", model);
+export const Owner = mongoose.model("Owners", model);
